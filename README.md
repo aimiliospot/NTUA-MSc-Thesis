@@ -1,5 +1,6 @@
 # Classification of Cancer Cells in Lymph Nodes Using Convolutional Neural Networks
 ## _MSc Mathematical Modeling in Modern Technologies – Diploma Thesis_
+My MSc Thesis can be found [here](https://dspace.lib.ntua.gr/xmlui/handle/123456789/60646?show=full)
 
 The aim of this project is to classify the degree of cancer cell spread from breast tissue to lymph nodes.  
 
