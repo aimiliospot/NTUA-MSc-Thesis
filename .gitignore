@@ -1,2 +1,7 @@
+manifest*/
+trainDataset/
 *.pth
-.idea
+Trained models
+trainDatasetShort/
+.idea/
+*.pyc

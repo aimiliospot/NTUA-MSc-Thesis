@@ -1,69 +1,62 @@
+# Classification of Cancer Cells in Lymph Nodes Using Convolutional Neural Networks
+## _MSc Mathematical Modeling in Modern Technologies – Diploma Thesis_
 
-# Classification of Cancer Cells in Lymph Nodes using Convolutional Neural Networks
+The aim of this project is to classify the degree of cancer cell spread from breast tissue to lymph nodes.  
 
-The purpose of this thesis is to investigate how capable convolutional neural networks are at classifying the degree of cancer cell metastasis from the breast to the axillary lymph nodes using MRIs from patients.
+The training of the Convolutional Neural Networks (CNNs) was based on the Breast MRI dataset provided by Duke University.  
+This dataset was originally introduced in the paper [_A machine learning approach to radiogenomics of breast cancer: a study of 922 subjects and 529 DCE-MRI features_](https://pmc.ncbi.nlm.nih.gov/articles/PMC6134102/).  
 
-A comprehensive understanding of the subject requires some basic knowledge of breast cancer, magnetic resonance imaging, and machine learning. For this reason, the thesis begins with a discussion on the pathogenesis, symptomatology, and subtypes of breast cancer, the methods of its diagnosis, its spread to nearby lymph nodes, and the available therapeutic approaches. Following this, an in-depth analysis of magnetic resonance imaging is provided, with emphasis on the role of the hydrogen nucleus, magnetization, resonance, energy delivery through RF pulses, relaxation times, and the method of signal detection. Additionally, an introduction to machine learning is included, along with an extensive analysis of convolutional neural networks.
+---
 
-All of the gained knowledge is combined in the final chapter, where the available dataset and the implementation of the convolutional neural networks presented in this thesis are thoroughly analyzed. Finally, the results of the study are presented and evaluated, and conclusions and possible future steps are documented.
+## Preprocessing
 
+- MRIs were provided in **NIFTI** format  
+- MRIs were converted from **NIFTI to DICOM**  
+- Based on annotation boxes, only the relevant slices of each MRI were retained  
+- Each slice was converted into **PNG format** with a resolution of **512 × 512** pixels  
 
-## Documentation
+---
 
-[Thesis pdf file](https://github.com/aimiliospot/NTUA-MSc-Thesis/raw/main/thesis/Aimilios%20Potoupnis%20Master%20Thesis.pdf)
+## Training
 
-## Installation
+- Training was performed using an **NVIDIA Tesla A100 Ampere 40GB** GPU  
+- The **Adam** and **AdamW** optimization algorithms were applied  
+- The initial learning rate was **0.001**, reduced by a factor of 10 whenever the validation error did not decrease for 5 consecutive epochs  
+- Training was terminated when the validation error failed to improve for 15 consecutive epochs  
 
-> I assume that Python is already installed :grinning:
+---
 
-Clone the repository
+## Evaluation
 
-```bash
-  git clone https://github.com/aimiliospot/Personal-Blog.git
-```
+- Model evaluation was carried out on a **validation set**  
+- Metrics considered: **Accuracy, Precision, Recall, and F1 Score**  
+- Since the images were classified into **four classes**, **Macro, Micro, and Weighted averaging** methods were applied  
 
-Create and activate virtual environment (on Windows)
+![Metrics Formulas](./Training%20and%20Evaluation/Models/Figures/Metrics_formulas.png)  
 
-```bash
-  python -m venv virtualenv
+---
 
-  virtualenv\Scripts\activate (Windows)
-```
+## Results  
 
-Create and activate virtual environment (on Linux)
+### Adam  
 
-```bash
-  python -m venv virtualenv
+![Results using Adam optimization algorithm](./Training%20and%20Evaluation/Models/Figures/Results_Adam.png)  
 
-  source virtualenv/bin/activate (Linux)
-```
+### AdamW  
 
-Install the dependecies:
+![Results using AdamW optimization algorithm](./Training%20and%20Evaluation/Models/Figures/Results_AdamW.png)  
 
-```bash
-  pip install -r requirements.txt
-```
+---
 
-## Usage
+## Technologies
 
-The implemented models are **AlexNet**, **DenseNet 121**, **EffientNet B0**, **GoogleNet**, **ResNet 50**, **ShuffleNet**,  each using either the **Adam** or **AdamW** optimizer. For each model there is a unique script to execute. For example, to train ShuffleNet with Adam optimizer run the following command:
+- PyTorch  
+- Pandas  
+- Pydicom  
+- Matplotlib  
 
-```bash
-python shufflenet_adam.py
-```
-
-After training is complete, the specified script will save the trained model in the 'models' directory, the training diagrams in the 'figures' directory, and the confusion matrix in the 'conf_matrices' directory.
-
-Once all models have been trained, you can calculate evaluation metrics for all the trained models and export them into a CSV file in the evaluation_metrics directory by running the following command:
-
-```bash
-python evaluation_metrics_calculator.py
-```
-
-## Tech Stack
-
-[![Tech Stack](https://skillicons.dev/icons?i=python,pytorch)](https://skillicons.dev)
+---
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+MIT  
